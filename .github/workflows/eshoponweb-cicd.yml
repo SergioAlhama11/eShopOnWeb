@@ -1,20 +1,20 @@
-name: eShopOnWeb Build and Test
+name: eShopOnWeb Build
 
 #Triggers (uncomment line below to use it)
 on: [push, workflow_dispatch]
 
 #Environment variables https://docs.github.com/en/actions/learn-github-actions/environment-variables
 env:
-  RESOURCE-GROUP: rg-eshoponweb-Indra24
-  LOCATION: eastus2
+  RESOURCE-GROUP: Indra24
+  LOCATION: spaincentral
   TEMPLATE-FILE: infra/webapp.bicep
   SUBSCRIPTION-ID: 239a12fd-fdfd-4e9d-8cec-45c05d6c6c9a
   WEBAPP-NAME: eshoponweb-webapp-indra24
 
 
 jobs:
-  #Build, test and publish .net web project in repository
-  buildandtest:
+  #Build and publish .net web project in repository
+  build:
     runs-on: ubuntu-latest
     steps:
     #checkout the repository
@@ -52,7 +52,7 @@ jobs:
   # Use Bicep to deploy infrastructure + Publish webapp 
   deploy:
     runs-on: ubuntu-latest
-    needs: buildandtest
+    needs: build
     environment:
       name: 'Development'
     steps:
